@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Trackit</string>
-    <string name="sign_in_welcome_text">Hi Benjamin, Welcome to Trackit</string>
+    <string name="sign_in_welcome_text">Hi Benjamin, \nWelcome to TrackIt</string>
     <string name="email_hint_label">Email</string>
     <string name="password_hint_label">Password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show Password</string>
 </resources>
