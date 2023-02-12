@@ -20,14 +20,13 @@ fun SignInScreen(
         Modifier.padding(16.dp)
 ) {
     Column(
-        modifier.fillMaxWidth()
+        modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Title()
-        Spacer(modifier.height(1.dp))
         EmailTextField()
-        Spacer(modifier.height(1.dp))
         PasswordTextField()
-        Spacer(modifier.height(1.dp))
         SignInButton()
     }
 }
@@ -46,7 +45,11 @@ fun EmailTextField() {
         value = emailState.value,
         onValueChange = {
             emailState.value = it
-        })
+        },
+        label = {
+            Text(stringResource(R.string.email_hint_label))
+        }
+    )
 }
 
 @Composable
@@ -58,7 +61,11 @@ fun PasswordTextField() {
         value = passwordState.value,
         onValueChange = {
             passwordState.value = it
-        })
+        },
+        label = {
+            Text(stringResource(R.string.password_hint_label))
+        }
+    )
 }
 
 @Composable
