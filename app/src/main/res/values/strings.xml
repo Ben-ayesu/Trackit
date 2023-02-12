@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Trackit</string>
+    <string name="sign_in_welcome_text">Hi Benjamin, Welcome to Trackit</string>
+</resources>
