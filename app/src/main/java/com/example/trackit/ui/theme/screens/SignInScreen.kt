@@ -2,6 +2,7 @@ package com.example.trackit.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -12,6 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +28,7 @@ fun SignInScreen(
     Column(
         modifier
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Title()
         EmailTextField()
@@ -48,17 +51,14 @@ fun EmailTextField() {
         modifier = Modifier
             .fillMaxWidth(),
         value = emailState.value,
-        onValueChange = {
-            emailState.value = it
-        },
-        label = {
-            Text(stringResource(R.string.email_hint_label))
-        },
+        onValueChange = { emailState.value = it },
+        label = { Text(stringResource(R.string.email_hint_label)) },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
 
@@ -81,7 +81,9 @@ fun PasswordTextField() {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        visualTransformation = PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
     )
 }
 
@@ -90,7 +92,8 @@ fun SignInButton(){
     Button(
         onClick = { /*TODO*/ },
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(16.dp)
     ) {
         Text(text = "Sign In")
     }
