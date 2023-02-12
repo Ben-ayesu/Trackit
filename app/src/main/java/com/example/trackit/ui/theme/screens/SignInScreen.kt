@@ -88,7 +88,9 @@ fun PasswordTextField() {
 @Composable
 fun SignInButton(){
     Button(
-        onClick = { /*TODO*/ }
+        onClick = { /*TODO*/ },
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
         Text(text = "Sign In")
     }
