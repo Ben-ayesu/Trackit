@@ -22,120 +22,113 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.trackit.R
+import com.example.trackit.navigation.Destination
 
 @Composable
 fun SignInScreen(
+    context: Context,
+    navController: NavHostController,
     modifier: Modifier =
         Modifier.padding(16.dp)
 ) {
-    val context = LocalContext.current
+    val emailState = remember {
+        mutableStateOf(TextFieldValue())
+    }
+    val passwordState = remember { mutableStateOf(TextFieldValue()) }
+    val showPassword = remember { mutableStateOf(false) }
+
     Column(
         modifier
             .fillMaxWidth()
             .fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Title()
-        EmailTextField()
-        PasswordTextField()
-        SignInButton(context)
-    }
-}
-
-@Composable
-fun Title() {
-    Text(
-        text = stringResource(R.string.sign_in_welcome_text),
-        style = MaterialTheme.typography.headlineMedium
-    )
-}
-@Composable
-fun EmailTextField() {
-    val emailState = remember {
-        mutableStateOf(TextFieldValue())
-    }
-    TextField(
-        modifier = Modifier
-            .fillMaxWidth(),
-        value = emailState.value,
-        onValueChange = { emailState.value = it },
-        label = { Text(stringResource(R.string.email_hint_label)) },
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        shape = RoundedCornerShape(8.dp),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-    )
-}
-
-@Composable
-fun PasswordTextField() {
-    val passwordState = remember { mutableStateOf(TextFieldValue()) }
-    val showPassword = remember { mutableStateOf(false) }
-
-    TextField(
-        modifier = Modifier
-            .fillMaxWidth(),
-        value = passwordState.value,
-        onValueChange = {
-            passwordState.value = it
-        },
-        label = {
-            Text(stringResource(R.string.password_hint_label))
-        },
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        shape = RoundedCornerShape(8.dp),
-        visualTransformation = if (showPassword.value) {
-            VisualTransformation.None
-        } else {
-            PasswordVisualTransformation()
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        trailingIcon = {
-            if (showPassword.value) {
-                IconButton(
-                    onClick = { showPassword.value = false }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Visibility,
-                        contentDescription = stringResource(R.string.hide_password)
-                    )
-                }
+        // Welcome text
+        Text(
+            text = stringResource(R.string.sign_in_welcome_text),
+            style = MaterialTheme.typography.headlineMedium
+        )
+        // Email Text Field
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            value = emailState.value,
+            onValueChange = { emailState.value = it },
+            label = { Text(stringResource(R.string.email_hint_label)) },
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(8.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+        // Password Text Field
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            value = passwordState.value,
+            onValueChange = {
+                passwordState.value = it
+            },
+            label = {
+                Text(stringResource(R.string.password_hint_label))
+            },
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(8.dp),
+            visualTransformation = if (showPassword.value) {
+                VisualTransformation.None
             } else {
-                IconButton(
-                    onClick = {
-                        showPassword.value = true
+                PasswordVisualTransformation()
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                if (showPassword.value) {
+                    IconButton(
+                        onClick = { showPassword.value = false }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Visibility,
+                            contentDescription = stringResource(R.string.hide_password)
+                        )
                     }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.VisibilityOff,
-                        contentDescription = stringResource(R.string.show_password)
-                    )
+                } else {
+                    IconButton(
+                        onClick = {
+                            showPassword.value = true
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.VisibilityOff,
+                            contentDescription = stringResource(R.string.show_password)
+                        )
+                    }
                 }
             }
+        )
+        // Sign in Button
+        Button(
+            onClick = {
+                Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show()
+                navController.navigate(Destination.Notes.route)
+            },
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            Text(text = "Sign In")
         }
-    )
-}
-
-@Composable
-fun SignInButton(context: Context) {
-    Button(
-        onClick = { Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show() },
-        modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(16.dp)
-    ) {
-        Text(text = "Sign In")
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen()
+    val context = LocalContext.current
+    val nav = rememberNavController()
+    SignInScreen(context, nav)
 }

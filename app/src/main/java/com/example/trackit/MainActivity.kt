@@ -3,7 +3,8 @@ package com.example.trackit
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.trackit.ui.screens.SignInScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.trackit.navigation.NavigationNavHost
 import com.example.trackit.ui.theme.TrackitTheme
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +12,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TrackitTheme {
-                SignInScreen()
+                val navController = rememberNavController()
+                NavigationNavHost(navController = navController)
             }
         }
     }
