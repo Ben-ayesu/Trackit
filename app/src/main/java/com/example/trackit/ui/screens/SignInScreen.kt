@@ -1,5 +1,7 @@
 package com.example.trackit.ui.screens
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -26,6 +29,7 @@ fun SignInScreen(
     modifier: Modifier =
         Modifier.padding(16.dp)
 ) {
+    val context = LocalContext.current
     Column(
         modifier
             .fillMaxWidth()
@@ -35,7 +39,7 @@ fun SignInScreen(
         Title()
         EmailTextField()
         PasswordTextField()
-        SignInButton()
+        SignInButton(context)
     }
 }
 
@@ -46,7 +50,6 @@ fun Title() {
         style = MaterialTheme.typography.headlineMedium
     )
 }
-
 @Composable
 fun EmailTextField() {
     val emailState = remember {
@@ -120,9 +123,9 @@ fun PasswordTextField() {
 }
 
 @Composable
-fun SignInButton() {
+fun SignInButton(context: Context) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show() },
         modifier = Modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
