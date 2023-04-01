@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "525112561234",
+    "project_id": "trackit-33e03",
+    "storage_bucket": "trackit-33e03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525112561234:android:44f783725fe59ee3af998b",
+        "android_client_info": {
+          "package_name": "com.example.trackit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525112561234-uq23blj41gvf66t4h8c34p3c0qdbg93e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw5pF6KNGi9saNCsGaPlQPdwPDPJTlgt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525112561234-uq23blj41gvf66t4h8c34p3c0qdbg93e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
