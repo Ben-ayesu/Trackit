@@ -8,12 +8,17 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthRepository {
+
+    // Returns currently auth user
     val currentUser: FirebaseUser? = Firebase.auth.currentUser
 
+    // Returns boolean indicating whether a user is currently authenticated or not.
     fun hasUser(): Boolean = Firebase.auth.currentUser != null
 
+    // Returns UID of the user or empty string if not authenticated
     fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
 
+    //
     suspend fun createUser(
         email: String,
         password: String,
