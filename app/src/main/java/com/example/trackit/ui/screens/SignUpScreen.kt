@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -39,28 +38,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.trackit.R
 import com.example.trackit.navigation.Destination
 
 @Composable
-fun SignInScreen(
+fun SignUpScreen(
     loginViewModel: LoginViewModel? = null,
     navController: NavHostController,
-    onNavToSignUpPage: () -> Unit,
+    onNavToSignInPage: () -> Unit,
     onNavToHomePage: () -> Unit,
-    modifier: Modifier =
-        Modifier.padding(16.dp)
 ) {
     val loginUiState = loginViewModel?.loginUiState
-    val isError = loginUiState?.loginError != null
+    val isError = loginUiState?.signUpError != null
     val context = LocalContext.current
 
     val showPassword = remember { mutableStateOf(false) }
 
     Column(
-        modifier
+        modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -71,7 +70,7 @@ fun SignInScreen(
         )
         // Login Text
         Text(
-            text = stringResource(R.string.login_text),
+            text = stringResource(R.string.signup_text),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Black,
             color = MaterialTheme.colorScheme.primary
@@ -79,7 +78,7 @@ fun SignInScreen(
 
         if (isError) {
             Text(
-                text = loginUiState?.loginError ?: "unknown error",
+                text = loginUiState?.signUpError ?: "unknown error",
                 color = Color.Red
             )
         }
@@ -87,8 +86,8 @@ fun SignInScreen(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
-            value = loginUiState?.userName ?: "",
-            onValueChange = { loginViewModel?.onUserNameChange(it) },
+            value = loginUiState?.userNameSignUp ?: "",
+            onValueChange = { loginViewModel?.onUserNameChangeSignUp(it) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Person,
@@ -108,7 +107,7 @@ fun SignInScreen(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
-            value = loginUiState?.password ?: "",
+            value = loginUiState?.passwordSignUp ?: "",
             onValueChange = {
                 loginViewModel?.onPasswordChangeSignup(it)
             },
@@ -156,10 +155,62 @@ fun SignInScreen(
                 }
             }
         )
+        // Confirm Password Text Field
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            value = loginUiState?.confirmPasswordSignUp ?: "",
+            onValueChange = {
+                loginViewModel?.onConfirmPasswordChange(it)
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(stringResource(R.string.confirm_password_hint_label))
+            },
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(8.dp),
+            visualTransformation = if (showPassword.value) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                if (showPassword.value) {
+                    IconButton(
+                        onClick = { showPassword.value = false }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Visibility,
+                            contentDescription = stringResource(R.string.hide_password)
+                        )
+                    }
+                } else {
+                    IconButton(
+                        onClick = {
+                            showPassword.value = true
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.VisibilityOff,
+                            contentDescription = stringResource(R.string.show_password)
+                        )
+                    }
+                }
+            }
+        )
         // Sign in Button
         Button(
             onClick = {
-                loginViewModel?.loginUser(context)
+                loginViewModel?.createUser(context)
                 Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show()
                 navController.navigate(Destination.Notes.route)
             },
@@ -167,7 +218,7 @@ fun SignInScreen(
                 .fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
         ) {
-            Text(text = "Sign In")
+            Text(text = "Sign Up")
         }
         //
         Row(
@@ -175,15 +226,15 @@ fun SignInScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Don't have an Account?")
+            Text(text = "Already have an Account?")
             Spacer(modifier = Modifier.size(8.dp))
             TextButton(
                 onClick = {
-                    onNavToSignUpPage.invoke()
+                    onNavToSignInPage.invoke()
                     Toast.makeText(context, "Signing you up", Toast.LENGTH_SHORT).show()
                 }
             ) {
-                Text(text = "Sign Up")
+                Text(text = "Sign In")
             }
         }
 
@@ -199,12 +250,11 @@ fun SignInScreen(
     }
 }
 
-//@Preview(
-//    showBackground = true,
-//    showSystemUi = true
-//)
-//@Composable
-//fun SignInScreenPreview() {
-//    val nav = rememberNavController()
-//    SignInScreen(null, nav)
-//}
+@Preview(showSystemUi = true)
+@Composable
+fun SignUpPreviewScreen() {
+    val nav = rememberNavController()
+    SignUpScreen(navController = nav, onNavToSignInPage = { /*TODO*/ }) {
+
+    }
+}

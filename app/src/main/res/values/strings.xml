@@ -5,4 +5,7 @@
     <string name="password_hint_label">Password</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show Password</string>
+    <string name="login_text">Login</string>
+    <string name="signup_text">Sign Up</string>
+    <string name="confirm_password_hint_label">Confirm Password</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.trackit.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,11 +14,10 @@ sealed class Destination(val route: String) {
 
 @Composable
 fun NavigationNavHost(navController: NavHostController) {
-    val context = LocalContext.current
 
     NavHost(navController = navController, startDestination = "login") {
         composable(Destination.Login.route) {
-            SignInScreen(context, navController)
+            SignInScreen(null, navController, {}, {})
         }
         composable(Destination.Notes.route) {
             NotesScreen()
