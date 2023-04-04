@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -40,16 +41,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.trackit.R
-import com.example.trackit.navigation.Destination
 
 @Composable
 fun SignUpScreen(
     loginViewModel: LoginViewModel? = null,
-    navController: NavHostController,
-    onNavToSignInPage: () -> Unit,
+    onNavToSignUpPage: () -> Unit,
     onNavToHomePage: () -> Unit,
 ) {
     val loginUiState = loginViewModel?.loginUiState
@@ -60,6 +58,7 @@ fun SignUpScreen(
 
     Column(
         modifier = Modifier
+            .padding(16.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -212,7 +211,6 @@ fun SignUpScreen(
             onClick = {
                 loginViewModel?.createUser(context)
                 Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show()
-                navController.navigate(Destination.Notes.route)
             },
             modifier = Modifier
                 .fillMaxWidth(),
@@ -230,7 +228,7 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.size(8.dp))
             TextButton(
                 onClick = {
-                    onNavToSignInPage.invoke()
+                    onNavToSignUpPage.invoke()
                     Toast.makeText(context, "Signing you up", Toast.LENGTH_SHORT).show()
                 }
             ) {
@@ -254,7 +252,7 @@ fun SignUpScreen(
 @Composable
 fun SignUpPreviewScreen() {
     val nav = rememberNavController()
-    SignUpScreen(navController = nav, onNavToSignInPage = { /*TODO*/ }) {
+    SignUpScreen(onNavToSignUpPage = { /*TODO*/ }) {
 
     }
 }

@@ -1,6 +1,5 @@
 package com.example.trackit.ui.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,14 +39,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.example.trackit.R
-import com.example.trackit.navigation.Destination
 
 @Composable
 fun SignInScreen(
     loginViewModel: LoginViewModel? = null,
-    navController: NavHostController,
     onNavToSignUpPage: () -> Unit,
     onNavToHomePage: () -> Unit,
     modifier: Modifier =
@@ -110,7 +106,7 @@ fun SignInScreen(
                 .fillMaxWidth(),
             value = loginUiState?.password ?: "",
             onValueChange = {
-                loginViewModel?.onPasswordChangeSignup(it)
+                loginViewModel?.onPasswordNameChange(it)
             },
             leadingIcon = {
                 Icon(
@@ -160,8 +156,6 @@ fun SignInScreen(
         Button(
             onClick = {
                 loginViewModel?.loginUser(context)
-                Toast.makeText(context, "This button works", Toast.LENGTH_SHORT).show()
-                navController.navigate(Destination.Notes.route)
             },
             modifier = Modifier
                 .fillMaxWidth(),
@@ -180,7 +174,6 @@ fun SignInScreen(
             TextButton(
                 onClick = {
                     onNavToSignUpPage.invoke()
-                    Toast.makeText(context, "Signing you up", Toast.LENGTH_SHORT).show()
                 }
             ) {
                 Text(text = "Sign Up")

@@ -9,16 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trackit.components.NotesCard
 
 @Composable
-fun NotesScreen() {
-
-    val context = LocalContext.current
+fun HomeScreen() {
     val elements = MutableList(100) { it }
 
     Column {
@@ -41,5 +38,5 @@ fun NotesScreen() {
 @Preview
 @Composable
 fun NoteScreenPreview() {
-    NotesScreen()
+    HomeScreen()
 }
