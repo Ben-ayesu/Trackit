@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -35,19 +34,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.trackit.R
+import com.example.trackit.ui.Viewmodels.LoginViewModel
 
 @Composable
 fun SignInScreen(
     loginViewModel: LoginViewModel? = null,
     onNavToSignUpPage: () -> Unit,
     onNavToHomePage: () -> Unit,
-    modifier: Modifier =
-        Modifier.padding(16.dp)
+    modifier: Modifier = Modifier
 ) {
     val loginUiState = loginViewModel?.loginUiState
     val isError = loginUiState?.loginError != null
@@ -98,7 +98,11 @@ fun SignInScreen(
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(8.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            maxLines = 1
         )
         // Password Text Field
         OutlinedTextField(
@@ -122,12 +126,16 @@ fun SignInScreen(
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(8.dp),
+            maxLines = 1,
             visualTransformation = if (showPassword.value) {
                 VisualTransformation.None
             } else {
                 PasswordVisualTransformation()
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
             trailingIcon = {
                 if (showPassword.value) {
                     IconButton(

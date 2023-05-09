@@ -36,13 +36,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.trackit.R
+import com.example.trackit.ui.Viewmodels.LoginViewModel
 
 @Composable
 fun SignUpScreen(
@@ -100,7 +101,10 @@ fun SignUpScreen(
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(8.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            )
         )
         // Password Text Field
         OutlinedTextField(
@@ -129,7 +133,10 @@ fun SignUpScreen(
             } else {
                 PasswordVisualTransformation()
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
+            ),
             trailingIcon = {
                 if (showPassword.value) {
                     IconButton(
@@ -181,7 +188,10 @@ fun SignUpScreen(
             } else {
                 PasswordVisualTransformation()
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
+            ),
             trailingIcon = {
                 if (showPassword.value) {
                     IconButton(
@@ -251,8 +261,6 @@ fun SignUpScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun SignUpPreviewScreen() {
-    val nav = rememberNavController()
     SignUpScreen(onNavToSignUpPage = { /*TODO*/ }) {
-
     }
 }

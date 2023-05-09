@@ -1,4 +1,4 @@
-package com.example.trackit.ui.screens
+package com.example.trackit.ui.Viewmodels
 
 import android.content.Context
 import android.widget.Toast
@@ -53,14 +53,14 @@ class LoginViewModel(
     fun createUser(context: Context) = viewModelScope.launch {
         try {
             if (!validateSignupForm()) {
-                throw IllegalArgumentException("email and password cano not be empty")
+                throw IllegalArgumentException("email and password cannot be empty")
             }
             loginUiState = loginUiState.copy(isLoading = true)
             if (loginUiState.passwordSignUp !=
                 loginUiState.confirmPasswordSignUp
             ) {
                 throw IllegalArgumentException(
-                    "Password do not match"
+                    "Passwords do not match"
                 )
             }
             loginUiState = loginUiState.copy(signUpError = null)
@@ -97,7 +97,7 @@ class LoginViewModel(
     fun loginUser(context: Context) = viewModelScope.launch {
         try {
             if (!validateLoginForm()) {
-                throw IllegalArgumentException("email and password cano not be empty")
+                throw IllegalArgumentException("email and password cannot be empty")
             }
             loginUiState = loginUiState.copy(isLoading = true)
             loginUiState = loginUiState.copy(loginError = null)

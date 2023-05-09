@@ -15,7 +15,7 @@ const val Trackit_COLLECTION_REF = "Trackit"
 
 class StorageRepository() {
 
-    val user = Firebase.auth.currentUser
+    fun user() = Firebase.auth.currentUser
     fun hasUser(): Boolean = Firebase.auth.currentUser != null
 
     fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
@@ -42,7 +42,7 @@ class StorageRepository() {
                     trySend(response)
                 }
         } catch (e: Exception) {
-            trySend(Resources.Error(e?.cause))
+            trySend(Resources.Error(e.cause))
             e.printStackTrace()
         }
         awaitClose {
@@ -123,6 +123,8 @@ class StorageRepository() {
             }
 
     }
+
+    fun signOut() = Firebase.auth.signOut()
 }
 
 sealed class Resources<T>(
