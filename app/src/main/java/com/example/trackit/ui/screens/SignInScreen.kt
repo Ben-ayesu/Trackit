@@ -1,5 +1,6 @@
 package com.example.trackit.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -30,14 +33,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trackit.R
 import com.example.trackit.ui.Viewmodels.LoginViewModel
@@ -47,7 +53,7 @@ fun SignInScreen(
     loginViewModel: LoginViewModel? = null,
     onNavToSignUpPage: () -> Unit,
     onNavToHomePage: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier.padding(8.dp)
 ) {
     val loginUiState = loginViewModel?.loginUiState
     val isError = loginUiState?.loginError != null
@@ -57,13 +63,22 @@ fun SignInScreen(
 
     Column(
         modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .fillMaxSize()
+            .padding(top = 56.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        Alignment.CenterHorizontally
     ) {
+        //Image or Icon
+        Image(
+            painter = painterResource(id = R.drawable.hotpot1),
+            contentDescription = "",
+            modifier.clip(shape = CircleShape)
+        )
         // Welcome text
         Text(
             text = stringResource(R.string.sign_in_welcome_text),
-            style = MaterialTheme.typography.headlineMedium
+            modifier.padding(top = 24.dp),
+            style = MaterialTheme.typography.headlineMedium,
         )
         // Login Text
         Text(
@@ -82,7 +97,8 @@ fun SignInScreen(
         // Email Text Field
         OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             value = loginUiState?.userName ?: "",
             onValueChange = { loginViewModel?.onUserNameChange(it) },
             leadingIcon = {
@@ -107,7 +123,8 @@ fun SignInScreen(
         // Password Text Field
         OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             value = loginUiState?.password ?: "",
             onValueChange = {
                 loginViewModel?.onPasswordNameChange(it)
@@ -166,7 +183,8 @@ fun SignInScreen(
                 loginViewModel?.loginUser(context)
             },
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(8.dp),
             contentPadding = PaddingValues(16.dp)
         ) {
             Text(text = "Sign In")
@@ -200,12 +218,15 @@ fun SignInScreen(
     }
 }
 
-//@Preview(
-//    showBackground = true,
-//    showSystemUi = true
-//)
-//@Composable
-//fun SignInScreenPreview() {
-//    val nav = rememberNavController()
-//    SignInScreen(null, nav)
-//}
+@Preview(
+    showBackground = true,
+    showSystemUi = true
+)
+@Composable
+fun SignInScreenPreview() {
+    SignInScreen(
+        null,
+        { },
+        { }
+    )
+}
