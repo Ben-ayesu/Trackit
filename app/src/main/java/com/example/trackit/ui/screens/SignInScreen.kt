@@ -2,14 +2,13 @@ package com.example.trackit.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,6 +44,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.trackit.R
 import com.example.trackit.ui.Viewmodels.LoginViewModel
 
@@ -177,26 +177,38 @@ fun SignInScreen(
                 }
             }
         )
+        // Forgot password
+        Box(
+            modifier.fillMaxWidth(),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            TextButton(
+                onClick = { /*TODO*/ }
+            ) {
+                Text(
+                    text = "Forgot password?",
+                    fontSize = 16.sp
+                )
+            }
+        }
         // Sign in Button
         Button(
             onClick = {
                 loginViewModel?.loginUser(context)
             },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            contentPadding = PaddingValues(16.dp)
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(8.dp)
         ) {
             Text(text = "Sign In")
         }
-        //
+        // Sign up text
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(text = "Don't have an Account?")
-            Spacer(modifier = Modifier.size(8.dp))
             TextButton(
                 onClick = {
                     onNavToSignUpPage.invoke()
